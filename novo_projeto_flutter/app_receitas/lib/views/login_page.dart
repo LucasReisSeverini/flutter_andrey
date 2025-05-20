@@ -10,11 +10,87 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _formKey = GlobalKey<FormState>();
+  final _controladorUser = TextEditingController();
+  final _controladorPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     //widget pai de telas, possui estrutura base das telas, tela padronizada
     return Scaffold(
       appBar: appBar(),
+      //body é o corpo da tela
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 26,
+            vertical: 16
+          ),
+          //COntainer vai delimitar a area
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Text(
+                  'Acessar sua conta',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600
+                  ),
+                  ),
+                  TextFormField(
+                    controller: _controladorUser,
+                    decoration: InputDecoration(
+                      labelText: 'User',
+                      hintText: 'Usuario de acesso',
+                      prefixIcon: Icon(Icons.person)
+                    ),
+                    validator: (usuario){
+                      if(usuario == null || usuario.isEmpty){
+                        return 'O campo usuario não pode estar vazio';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _controladorPassword,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'Senha de acesso',
+                      prefixIcon: Icon(Icons.lock)
+                    ),
+                    validator: (senha){
+                      if(senha == null || senha.isEmpty){
+                        return 'O campo senha não pode estar vazio';
+                      }
+
+                      if(senha.length < 4){
+                        return 'A senha deve conter no minimo 4 digitos';
+                      }
+                      return null;
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: (){
+                      if(_formKey.currentState!.validate()){
+                        print('Forms sem erro');
+                        print(_controladorUser.text);
+                      }
+                    },
+                    child: Text(
+                      'Entrar',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
+                    )
+                    )
+              ],
+
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
