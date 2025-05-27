@@ -1,3 +1,4 @@
+import 'package:app_receitas/components/app_bar_component.dart';
 import 'package:flutter/material.dart';
 
 //criando um state full
@@ -11,6 +12,21 @@ class ReceitasPage extends StatefulWidget {
 class _ReceitasPageState extends State<ReceitasPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: appBar(
+        icone:Icons.receipt,
+        titulo: 'App de Receitas'
+      ),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Voltar')
+          )
+        ],
+      ),
+    );
   }
 }
