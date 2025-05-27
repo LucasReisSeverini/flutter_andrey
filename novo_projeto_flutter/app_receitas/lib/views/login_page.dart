@@ -1,4 +1,5 @@
 import 'package:app_receitas/components/app_bar_component.dart';
+import 'package:app_receitas/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 
 //criando um statfull digite stlful
@@ -74,8 +75,13 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
-                        print('Forms sem erro');
-                        print(_controladorUser.text);
+                        bool login = LoginControler.instance.login(_controladorUser.text, _controladorPassword.text);
+                        print(login);
+
+                        if(login){
+                          Navigator.of(context).pushNamed('/receitas');
+                        }
+
                       }
                     },
                     child: Text(
