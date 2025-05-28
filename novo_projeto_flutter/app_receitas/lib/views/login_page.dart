@@ -1,4 +1,5 @@
 import 'package:app_receitas/components/app_bar_component.dart';
+import 'package:app_receitas/components/snack_bar_component.dart';
 import 'package:app_receitas/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Form(
             key: _formKey,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Acessar sua conta',
@@ -62,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       prefixIcon: Icon(Icons.lock)
                     ),
                     validator: (senha){
+                      
                       if(senha == null || senha.isEmpty){
                         return 'O campo senha não pode estar vazio';
                       }
@@ -80,17 +83,24 @@ class _LoginPageState extends State<LoginPage> {
 
                         if(login){
                           Navigator.of(context).pushNamed('/receitas');
-                        }
+                        }else{
+                          ScaffoldMessenger.of(context).
+                            showSnackBar(
+                              snackBar(
+                                mensagem: 'As credenciais estão erradas',
+                                corFundo: Colors.redAccent
 
-                      }
+                              )
+                            );
+                        }
+                        }
                     },
-                    child: Text(
-                      'Entrar',
+                    child: Text('Entrar',
                       style: TextStyle(
                         fontSize: 16
                       ),
                     )
-                    )
+                  )
               ],
 
             ),
